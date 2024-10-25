@@ -1,3 +1,5 @@
+from tkinter import * 
+
 def print_board(board):
     for row in range (len(board)):
         print(" | ".join(board [row]))
@@ -61,9 +63,3 @@ def tic_tac_toe():
 
 if __name__ == "__main__":
     tic_tac_toe()
-
-
-"""def ia(board, signe):
-    if len(board) != 9 or signe not in ['X', 'O']:
-        return False
-    print(ia(board, signe))"""
