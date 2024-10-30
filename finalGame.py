@@ -1,68 +1,56 @@
-"""def intro():
-    print("Hello! welcome to Tic-Tac-Toe game :) ")
-    inp=input("do you have a partener ? If your answer is No your gonna to play with IA (yes/no):  ")
+def intro():
+    print("Hello! Welcome to the Tic-Tac-Toe game :) ")
+    inp = input("Do you have a partner? If your answer is No, you'll play with the AI (yes/no): ").strip().lower()
     if inp == "yes":
-        print("it's gonna to be a great party! happy for you")
-    elif inp=="no":
-        print("can you win our IA? let's try ")
+        print("It's going to be a great party! Happy for you!")
+    elif inp == "no":
+        print("Can you win against our AI? Let's try!")
     else:
-        print("please inter the right answer")
-    
-intro()"""
+        print("Please enter a valid answer (yes/no).")
+        intro()  # Redémarre l'introduction si la réponse est invalide
 
-"""def reset_game():
-    Réinitialise le jeu après chaque partie.
-    while True:
-        reset = input("Do you want to play again? (yes/no): ").strip().lower()
-        if reset == "yes":
-            return True
-        elif reset == "no":
-            print("Thank you for playing! Goodbye!")
-            return False
-        else:
-            print("Please enter a valid answer (yes/no).")"""
+intro()
 
-
-"""Displays the game board."""
 def print_board(board):
-    for row in range (len(board)):
-        print(" | ".join(board [row]))
-        if row != len(board)- 1:
+    """Displays the game board."""
+    for row in range(len(board)):
+        print(" | ".join(board[row]))
+        if row != len(board) - 1:
             print("_" * 10)
 
-"""Check if there is a winner."""
 def check_winner(board):
+    """Check if there is a winner."""
     # Checks rows and columns
     for row_index in range(3):
         if board[row_index][0] == board[row_index][1] == board[row_index][2] != " ":
             return board[row_index][0]
         if board[0][row_index] == board[1][row_index] == board[2][row_index] != " ":
             return board[0][row_index]
-     # Check the diagonals   
+    
+    # Check the diagonals   
     if board[0][0] == board[1][1] == board[2][2] != " ":
         return board[0][0]
     if board[0][2] == board[1][1] == board[2][0] != " ":
         return board[0][2]
-    # No winner
-    return None
 
-"""Check if the game board is full."""
+    return None  # No winner
+
 def is_board_full(board):
+    """Check if the game board is full."""
     return all(cell != " " for row in board for cell in row)
 
-"""AI must choose the best move"""
 def ia(board, sign):
+    """AI must choose the best move."""
     # Check for winning moves
     for index in range(9):
         row_index = index // 3
         col_index = index % 3
         if board[row_index][col_index] == " ":
-            board[row_index][col_index] = sign #try the move
+            board[row_index][col_index] = sign  # Try the move
             if check_winner(board) == sign:
-                return index #return the move winner
-            board[row_index][col_index] = " " #cancel the movement
+                return index  # Return the winning move
+            board[row_index][col_index] = " "  # Cancel the movement
 
-   
     # Check for blocking moves
     opponent_sign = "O" if sign == "X" else "X"
     for index in range(9):
@@ -79,21 +67,23 @@ def ia(board, sign):
     for index in range(9):
         if board[index // 3][index % 3] == " ":
             return index
-    # No valid moves
-    return False  
 
+    return False  # No valid moves
 
 def tic_tac_toe():
+    """Main function to play Tic-Tac-Toe."""
     board = [[" " for _ in range(3)] for _ in range(3)]
     
     mode = input("Choose mode: (1) Human vs Human (2) Human vs AI: ")
-    symbol = input("Choose your symbol (X or O): ").upper()
+    while mode not in ["1", "2"]:
+        mode = input("Invalid choice! Please enter 1 or 2: ")
 
-    if symbol not in ["X", "O"]:
+    symbol = input("Choose your symbol (X or O): ").upper()
+    while symbol not in ["X", "O"]:
         print("Invalid symbol. Defaulting to X.")
         symbol = "X"
+    
     ai_symbol = "O" if symbol == "X" else "X"
-
     current_player = symbol
 
     while True:
@@ -137,9 +127,8 @@ def tic_tac_toe():
             print("It's a tie!")
             break
 
+        # Switch players
         current_player = ai_symbol if current_player == symbol else symbol
 
-        """if not reset_game():
-            break"""
 if __name__ == "__main__":
-    tic_tac_toe()
+    tic_tac_toe()  # Start the game

@@ -1,26 +1,10 @@
-"""def intro():
+def intro():
     print("Hello! welcome to Tic-Tac-Toe game :) ")
-    inp=input("do you have a partener ? If your answer is No your gonna to play with IA (yes/no):  ")
-    if inp == "yes":
-        print("it's gonna to be a great party! happy for you")
-    elif inp=="no":
-        print("can you win our IA? let's try ")
-    else:
-        print("please inter the right answer")
+    print("do you have a partener ? If your answer is No your gonna to play with IA . ")
+    print("it's gonna to be a great party! happy for you")
+    print("can you win our IA? let's try ")
     
-intro()"""
-
-"""def reset_game():
-    Réinitialise le jeu après chaque partie.
-    while True:
-        reset = input("Do you want to play again? (yes/no): ").strip().lower()
-        if reset == "yes":
-            return True
-        elif reset == "no":
-            print("Thank you for playing! Goodbye!")
-            return False
-        else:
-            print("Please enter a valid answer (yes/no).")"""
+intro()
 
 
 """Displays the game board."""
@@ -32,18 +16,15 @@ def print_board(board):
 
 """Check if there is a winner."""
 def check_winner(board):
-    # Checks rows and columns
     for row_index in range(3):
         if board[row_index][0] == board[row_index][1] == board[row_index][2] != " ":
             return board[row_index][0]
         if board[0][row_index] == board[1][row_index] == board[2][row_index] != " ":
             return board[0][row_index]
-     # Check the diagonals   
     if board[0][0] == board[1][1] == board[2][2] != " ":
         return board[0][0]
     if board[0][2] == board[1][1] == board[2][0] != " ":
         return board[0][2]
-    # No winner
     return None
 
 """Check if the game board is full."""
@@ -53,16 +34,9 @@ def is_board_full(board):
 """AI must choose the best move"""
 def ia(board, sign):
     # Check for winning moves
-    for index in range(9):
-        row_index = index // 3
-        col_index = index % 3
-        if board[row_index][col_index] == " ":
-            board[row_index][col_index] = sign #try the move
-            if check_winner(board) == sign:
-                return index #return the move winner
-            board[row_index][col_index] = " " #cancel the movement
-
-   
+    check_winner(board)
+    if check_winner(board) == sign:
+        board[row_index][col_index] = " " 
     # Check for blocking moves
     opponent_sign = "O" if sign == "X" else "X"
     for index in range(9):
@@ -79,10 +53,10 @@ def ia(board, sign):
     for index in range(9):
         if board[index // 3][index % 3] == " ":
             return index
-    # No valid moves
-    return False  
 
+    return False  # No valid moves
 
+"""the begins"""
 def tic_tac_toe():
     board = [[" " for _ in range(3)] for _ in range(3)]
     
@@ -138,8 +112,29 @@ def tic_tac_toe():
             break
 
         current_player = ai_symbol if current_player == symbol else symbol
+        
+"""Resets the game after each game."""
+def reset_game():
+    
+    while True:
+        tic_tac_toe()
+        reset = input("Do you want to play again? (yes/no): ").strip().lower()
+        if reset == "yes":
+            print("Again!")
+            #return True
+        elif reset == "no":
+            print("Thank you for playing! Goodbye!")
+            #return False
+            break
+        else:
+            print("Please enter a valid answer (yes/no).")
 
-        """if not reset_game():
-            break"""
+        if not reset_game():
+            break
+
+
+
 if __name__ == "__main__":
-    tic_tac_toe()
+   
+        #tic_tac_toe()
+        reset_game()
